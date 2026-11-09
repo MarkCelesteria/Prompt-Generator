@@ -35,17 +35,14 @@
 <label><input type="checkbox" id="gr"> Include graphs or diagrams (drawn as accurate SVG vectors)</label>
 <label>Kinds of graphs/diagrams (optional)<input type="text" id="grt" placeholder="e.g. line graph, bar chart, free-body diagram"></label></fieldset>
 
-<fieldset><legend>4. Exam</legend>
-<label><input type="checkbox" id="ex" checked> Include an exam</label>
+<fieldset><legend>4. Questions</legend>
 <label>Difficulty<select id="diff"><option>Easy</option><option>Medium</option><option>Hard</option><option selected>Mixed (20% easy, 40% medium, 40% hard)</option></select></label>
-<p class="sm">Question types and how many <b>per lesson</b>:</p><div id="types"></div>
-<p class="sm" id="tot"></p></fieldset>
-
-<fieldset><legend>5. Question rules</legend><div id="rules"></div></fieldset>
-<fieldset><legend>6. Exam interface</legend><div id="ui"></div></fieldset>
+<p class="sm">Pick the question types you want and how many per lesson. Everything is off until you turn it on.</p><div id="types" class="tcards"></div><p class="sm" id="tot"></p></fieldset>
+<fieldset id="rfs"><legend>5. Rules by question type</legend><p class="sm" id="rnone">Turn on a question type above to see its rules here.</p><div id="rtabs" class="tabs"></div><div id="rbody"></div></fieldset>
+<fieldset><legend>6. Interface</legend><div id="ui"></div></fieldset>
 <fieldset><legend>7. Output</legend>
 <label>Prompt format<select id="fmt"><option value="md" selected>Markdown (easiest to paste)</option><option value="txt">Plain text</option><option value="json">JSON (structured)</option></select></label>
-<label>What I want built<select id="del"><option selected>One interactive HTML file with study guide and exam</option><option>Study guide only (HTML)</option><option>Exam only (HTML)</option><option>Study guide in Markdown and exam in JSON</option></select></label>
+<label>What I want built<select id="del"><option selected>One interactive HTML file (study guide and questions as selected)</option><option>Study guide only (HTML)</option><option>Questions only (HTML)</option><option>Study guide in Markdown and questions in JSON</option></select></label>
 <label>Extra instructions<textarea id="extra" rows="3" placeholder="Anything else Claude should know"></textarea></label>
 <div class="bar"><button class="g" id="rs">Reset all</button></div></fieldset>
 </div>
