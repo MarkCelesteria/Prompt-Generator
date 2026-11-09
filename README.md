@@ -4,6 +4,12 @@ An installable web app that builds ready-to-paste prompts for AI assistants. Pic
 
 No build step, no dependencies, no account. Everything runs in the browser and your settings stay on your device.
 
+## Live demo
+
+https://markcelesteria.github.io/Prompt-Generator/
+
+Open it in your browser and install it as an app from there.
+
 ## Prompt types
 
 | Type | What it prepares |
@@ -53,7 +59,7 @@ All paths are relative, so it works from a repository subpath.
 ## Project structure
 
 ```
-prompt-generator/
+Prompt-Generator/
 ├── index.html
 ├── styles.css
 ├── app.js
