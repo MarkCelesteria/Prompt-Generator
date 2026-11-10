@@ -1,0 +1,104 @@
+.prompt-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fill,minmax(230px,1fr));
+  margin-top: 12px;
+}
+
+.prompt-card {
+  background: var(--card);
+  color: var(--fg);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.prompt-card svg {
+  width: 28px;
+  height: 28px;
+  color: var(--ac);
+}
+
+.prompt-card:hover {
+  border-color: var(--ac);
+}
+
+.type-cards {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+}
+
+.type-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 10px;
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.type-card input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.type-card svg {
+  width: 26px;
+  height: 26px;
+  color: var(--ac);
+}
+
+.type-card b {
+  font-size: 14px;
+}
+
+.type-card .sm {
+  font-size: 12px;
+}
+
+.type-card .count {
+  display: none;
+  width: 100%;
+  margin: 4px 0 0;
+}
+
+.type-card:has(input[type=checkbox]:checked) {
+  border-color: var(--ac);
+  background: color-mix(in srgb,var(--ac) 14%,var(--card));
+}
+
+.type-card:has(input[type=checkbox]:checked) .count {
+  display: block;
+}
+
+.type-card:has(input[type=checkbox]:focus-visible) {
+  outline: 2px solid var(--ac);
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.tab {
+  background: var(--bd);
+  color: var(--fg);
+  padding: 6px 12px;
+  border-radius: 99px;
+}
+
+.tab.on {
+  background: var(--ac);
+  color: var(--bg);
+}

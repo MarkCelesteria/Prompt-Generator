@@ -1,56 +1,42 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Prompt Generator</title>
-<meta name="theme-color" content="#b4561f">
-<meta name="description" content="Build ready-to-paste prompts for study guides, exams, flashcards and more.">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
-<link rel="stylesheet" href="styles.css">
-</head><body>
-<header><div class="hl"><button class="g" id="bk" aria-label="Back to home" hidden></button><h1 id="ttl">Prompt Generator</h1></div><button class="g" id="th" aria-label="Switch light or dark mode"></button></header>
-<main id="home"></main>
-<main id="view-study" hidden>
-<div id="form">
-<fieldset><legend>1. Subject</legend>
-<label>Title / file name of the HTML<input type="text" id="topic" placeholder="e.g. my_study_guide"></label>
-<label>Specific lessons to include (one per line). Leave blank to include all lessons in the files<textarea id="lessons" rows="4" placeholder="Leave blank for all lessons, or list only the ones you want"></textarea></label>
-<label>Student level<select id="level"><option>High school</option><option selected>College</option><option>Professional</option></select></label>
-<label>Language<input type="text" id="lang" value="English"></label></fieldset>
-
-<fieldset><legend>2. Sources</legend>
-<label><input type="radio" name="src" value="files" checked> Only my uploaded files</label>
-<label><input type="radio" name="src" value="verify"> My files first, internet only to verify or fill gaps</label>
-<label><input type="radio" name="src" value="web"> My files plus internet research for extra depth</label>
-<label><input type="checkbox" id="label" checked> Label content that did not come from my files</label></fieldset>
-
-<fieldset><legend>3. Study guide</legend>
-<label><input type="checkbox" id="sg" checked> Include a study guide</label>
-<label>Detail level<select id="det"><option>Concise</option><option>Detailed</option><option selected>Maximum detail, still relevant</option></select></label>
-<div id="sgf"></div></fieldset>
-<fieldset><legend>Math, problem solving and graphs</legend>
-<label><input type="checkbox" id="mth"> My lessons or questions include calculations / problem solving</label>
-<label>Kind of math (optional)<input type="text" id="mtx" placeholder="e.g. algebra, physics formulas, statistics"></label>
-<label><input type="checkbox" id="gr"> Include graphs or diagrams (drawn as accurate SVG vectors)</label>
-<label>Kinds of graphs/diagrams (optional)<input type="text" id="grt" placeholder="e.g. line graph, bar chart, free-body diagram"></label></fieldset>
-
-<fieldset><legend>4. Questions</legend>
-<label>Difficulty<select id="diff"><option>Easy</option><option>Medium</option><option>Hard</option><option selected>Mixed (20% easy, 40% medium, 40% hard)</option></select></label>
-<p class="sm">Pick the question types you want and how many per lesson. Everything is off until you turn it on.</p><div id="types" class="tcards"></div><p class="sm" id="tot"></p></fieldset>
-<fieldset id="rfs"><legend>5. Rules by question type</legend><p class="sm" id="rnone">Turn on a question type above to see its rules here.</p><div id="rtabs" class="tabs"></div><div id="rbody"></div></fieldset>
-<fieldset><legend>6. Interface</legend><div id="ui"></div></fieldset>
-<fieldset><legend>7. Output</legend>
-<label>Prompt format<select id="fmt"><option value="md" selected>Markdown (easiest to paste)</option><option value="txt">Plain text</option><option value="json">JSON (structured)</option></select></label>
-<label>What I want built<select id="del"><option selected>One interactive HTML file (study guide and questions as selected)</option><option>Study guide only (HTML)</option><option>Questions only (HTML)</option><option>Study guide in Markdown and questions in JSON</option></select></label>
-<label>Extra instructions<textarea id="extra" rows="3" placeholder="Anything else Claude should know"></textarea></label>
-<div class="bar"><button class="g" id="rs">Reset all</button></div></fieldset>
-</div>
-<div id="out"><fieldset><legend>Your prompt</legend>
-<textarea id="o" readonly></textarea>
-<div class="bar"><button id="cp"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg> Copy prompt</button><span class="sm" id="st"></span><span class="sm" id="ln"></span></div>
-<p class="sm">Paste this into Claude together with your files.</p></fieldset></div>
-</main>
-<main id="view-generic" hidden><div id="gform"></div><div id="gout"><fieldset><legend>Your prompt</legend><textarea id="go" readonly></textarea><div class="bar"><button id="gcp"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg> Copy prompt</button><span class="sm" id="gst"></span><span class="sm" id="gln"></span></div><p class="sm">Paste this into Claude together with your files.</p></fieldset></div></main>
-<script src="app.js"></script>
-</body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Prompt Generator</title>
+  <meta name="theme-color" content="#b4561f">
+  <meta name="description" content="Build ready-to-paste prompts for study guides, exams, flashcards and more.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <header>
+    <div class="hl">
+      <button class="g" id="bk" aria-label="Back to home" hidden></button>
+      <h1 id="ttl">Prompt Generator</h1>
+    </div>
+    <button class="g" id="th" aria-label="Switch light or dark mode"></button>
+  </header>
+  <main id="home"></main>
+  <main id="view" hidden>
+    <div id="form"></div>
+    <div id="out">
+      <fieldset>
+        <legend>Your prompt</legend>
+        <textarea id="o" readonly></textarea>
+        <div class="bar">
+          <button id="cp"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg> Copy prompt</button>
+          <button class="g" id="rs">Reset form</button>
+          <span class="sm" id="st"></span>
+          <span class="sm" id="ln"></span>
+        </div>
+        <p class="sm">Paste this into Claude together with your files.</p>
+      </fieldset>
+    </div>
+  </main>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

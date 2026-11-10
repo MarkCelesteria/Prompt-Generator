@@ -61,28 +61,69 @@ All paths are relative, so it works from a repository subpath.
 ```
 Prompt-Generator/
 ├── index.html
-├── styles.css
-├── app.js
 ├── manifest.webmanifest
 ├── sw.js
-└── icons/
-    ├── icon.svg
-    ├── icon-192.png
-    ├── icon-512.png
-    └── icon-maskable-512.png
+├── css/
+│   ├── base.css
+│   └── components.css
+├── icons/
+└── js/
+    ├── main.js
+    ├── core/
+    │   ├── common.js
+    │   ├── dom.js
+    │   ├── form.js
+    │   ├── icons.js
+    │   ├── output.js
+    │   ├── router.js
+    │   ├── storage.js
+    │   ├── theme.js
+    │   └── workspace.js
+    └── prompts/
+        ├── index.js
+        ├── flashcards.js
+        ├── reviewer.js
+        ├── report.js
+        ├── presentation.js
+        ├── answer.js
+        └── study/
+            ├── index.js
+            ├── build.js
+            ├── math.js
+            ├── options.js
+            ├── panels.js
+            └── types/
+                ├── index.js
+                └── mcq.js, tf.js, id.js, enum.js, fib.js, match.js,
+                    scen.js, ord.js, cross.js, wc.js, ps.js, essay.js
 ```
+
+Each prompt type lives in its own file under `js/prompts/`. Shared logic (form rendering, saving, output formatting, routing, theme) lives in `js/core/`.
+
+## Edit a prompt type
+
+- **Change a prompt's options or wording:** open its file in `js/prompts/`, for example `flashcards.js`.
+- **Change the rules of a question type:** open its file in `js/prompts/study/types/`, for example `cross.js`. The `rules` list is what gets added to the prompt.
+- **Change the shared study guide, general rules or interface options:** edit `js/prompts/study/options.js`.
+- **Change the math and graph rules:** edit `js/prompts/study/math.js`.
 
 ## Add a new prompt type
 
-1. In `app.js`, add an icon path to `ICON`.
-2. Add an entry to `CARDS` with an id, title and short description.
-3. Add a matching entry to `GEN` with `t` (title), `task`, `fs` (form fieldsets) and `b` (a function returning the prompt sections).
+1. Create `js/prompts/my-type.js` that exports an object with `id`, `title`, `summary`, `icon` (SVG path markup), `task`, `fieldsets` and `build`.
+2. Import it and add it to the list in `js/prompts/index.js`.
+3. Add the new file to `ASSETS` in `sw.js` and raise the cache version.
 
-The Study Guide and Exam generator has its own form in `index.html` and is built separately from `GEN`.
+`fieldsets` is a list of `{ lg, f: [...] }` groups. Field kinds are `txt`, `area`, `sel`, `num` and `chk`. `build` returns a list of `[heading, [lines]]` sections. Read values with `gv(id)` and `gc(id)` from `core/form.js`.
+
+## Add a question type to the study guide and exam
+
+1. Copy any file in `js/prompts/study/types/` and change its `id`, `label`, `description`, `icon` and `rules`. Use `group: "puzzle"` for puzzle-style types.
+2. Import it and add it to the list in `js/prompts/study/types/index.js`.
+3. Add the file to `ASSETS` in `sw.js` and raise the cache version.
 
 ## Updating an installed copy
 
-Installed copies cache the app files. After changing any file, raise the version in `sw.js`, for example `prompt-generator-v3`, so users receive the update.
+Installed copies cache the app files. After changing any file, raise the version in `sw.js`, for example `prompt-generator-v7`, so users receive the update.
 
 ## Browser support
 
